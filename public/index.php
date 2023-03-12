@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $router->add('', ['controller' => 'HomeController', 'action' => 'index']);
     $router->add('posts', ['controller' => 'HomeController', 'action' => 'show']);
     $router->add('posts/{id:\d+}', ['controller' => 'Posts', 'action' => 'show']);
+    $router->add('hello/{name}', ['controller' => 'HomeController', 'action' => 'showHello']);
     $router->add('custom/{controller}/{action}');
 
     $router->dispatch($_SERVER['REQUEST_URI']);

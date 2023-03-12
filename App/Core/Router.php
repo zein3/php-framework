@@ -77,7 +77,7 @@ class Router
             return;
         }
 
-        $theController = new $controller();
+        $theController = new $controller($this->params);
         $action = $this->params['action'];
         if (!is_callable([$theController, $action])) {
             echo "500: Method $action in $controller is Missing";

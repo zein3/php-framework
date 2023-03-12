@@ -11,4 +11,10 @@ class HomeController extends Controller
             'name' => "budi tabuti"
         ]);
     }
+
+    public function showHello() {
+        $this->view('home', [
+            'name' => $this->route_params['name']
+        ]);
+    }
 }
