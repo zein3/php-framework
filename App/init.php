@@ -4,7 +4,7 @@ require_once __DIR__ . '/Core/Router.php';
 
 // include semua controller
 foreach(glob(__DIR__ . '/Controllers/*.php') as $controller) {
-    include $controller;
+    include_once $controller;
 }
 
 $router = new Router();
