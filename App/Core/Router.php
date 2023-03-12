@@ -57,6 +57,28 @@ class Router
         return false;
     }
 
+    /**
+     * Match url and dispatch controllers
+     */
+    public function dispatch(string $url): void {
+        if ($this->match($url)) {
+            if (class_exists($this->params['controller'])) {
+                $controller = new $this->params['controller']();
+                $action = $this->params['action'];
+
+                if (is_callable([$controller, $action])) {
+                    $controller->$action();
+                } else {
+                    echo "500: Method missing";
+                }
+            } else {
+                echo "500: Controller missing";
+            }
+        } else {
+            echo "404: Not Found";
+        }
+    }
+
     public function getRoutes(): array {
         return $this->routes;
     }
