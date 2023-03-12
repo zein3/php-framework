@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Core;
+
 class Router
 {
     /**
@@ -59,15 +61,17 @@ class Router
 
     /**
      * Match url and dispatch controllers
+     * @param string $url
      */
     public function dispatch(string $url): void {
         if ($this->match($url)) {
-            if (class_exists($this->params['controller'])) {
-                $controller = new $this->params['controller']();
+            $controller = "App\Controllers\\" . $this->params['controller'];
+            if (class_exists($controller)) {
+                $theController = new $controller();
                 $action = $this->params['action'];
 
-                if (is_callable([$controller, $action])) {
-                    $controller->$action();
+                if (is_callable([$theController, $action])) {
+                    $theController->$action();
                 } else {
                     echo "500: Method missing";
                 }
