@@ -64,23 +64,24 @@ class Router
      * @param string $url
      */
     public function dispatch(string $url): void {
-        if ($this->match($url)) {
-            $controller = "App\Controllers\\" . $this->params['controller'];
-            if (class_exists($controller)) {
-                $theController = new $controller();
-                $action = $this->params['action'];
-
-                if (is_callable([$theController, $action])) {
-                    $theController->$action();
-                } else {
-                    echo "500: Method missing";
-                }
-            } else {
-                echo "500: Controller missing";
-            }
-        } else {
+        if (!$this->match($url)) {
             echo "404: Not Found";
+            return;
         }
+
+        $controller = "App\Controllers\\" . $this->params['controller'];
+        if (!class_exists($controller)) {
+            echo "500: Controller $controller Missing";
+            return;
+        }
+
+        $theController = new $controller();
+        $action = $this->params['action'];
+        if (!is_callable([$theController, $action])) {
+            echo "500: Method $action in $controller is Missing";
+        }
+
+        $theController->$action();
     }
 
     public function getRoutes(): array {
