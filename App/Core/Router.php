@@ -64,6 +64,8 @@ class Router
      * @param string $url
      */
     public function dispatch(string $url): void {
+        $url = $this->removeQueryString($url);
+
         if (!$this->match($url)) {
             echo "404: Not Found";
             return;
@@ -79,9 +81,21 @@ class Router
         $action = $this->params['action'];
         if (!is_callable([$theController, $action])) {
             echo "500: Method $action in $controller is Missing";
+            return;
         }
 
         $theController->$action();
+    }
+
+    protected function removeQueryString(string $url): string {
+        if ($url != '') {
+            $parts = explode('?', $url);
+
+            $url = $parts[0];
+            $url = trim($url, '/');
+        }
+
+        return $url;
     }
 
     public function getRoutes(): array {

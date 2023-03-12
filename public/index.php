@@ -13,12 +13,17 @@ spl_autoload_register(function ($class) {
 
 use App\Core\Router;
 
-$router = new Router();
 
 // contoh route
-$router->add('/', ['controller' => 'HomeController', 'action' => 'index']);
-$router->add('/posts', ['controller' => 'PostController', 'action' => 'index']);
-$router->add('/posts/{id:\d+}', ['controller' => 'Posts', 'action' => 'show']);
-$router->add('/custom/{controller}/{action}');
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $router = new Router();
 
-$router->dispatch($_SERVER['REQUEST_URI']);
+    $router->add('', ['controller' => 'HomeController', 'action' => 'index']);
+    $router->add('posts', ['controller' => 'HomeController', 'action' => 'show']);
+    $router->add('posts/{id:\d+}', ['controller' => 'Posts', 'action' => 'show']);
+    $router->add('custom/{controller}/{action}');
+
+    $router->dispatch($_SERVER['REQUEST_URI']);
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $router = new Router();
+}
