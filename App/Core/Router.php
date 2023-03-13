@@ -66,25 +66,27 @@ class Router
     public function dispatch(string $url): void {
         $url = $this->removeQueryString($url);
 
-        if (!$this->match($url)) {
-            echo "404: Not Found";
-            return;
-        }
+        try {
+            if (!$this->match($url)) {
+                throw new \Exception("Page not found", 404);
+            }
 
-        $controller = "App\Controllers\\" . $this->params['controller'];
-        if (!class_exists($controller)) {
-            echo "500: Controller $controller Missing";
-            return;
-        }
+            $controller = "App\Controllers\\" . $this->params['controller'];
+            if (!class_exists($controller)) {
+                throw new \Exception("Controller $controller Missing", 500);
+            }
 
-        $theController = new $controller($this->params);
-        $action = $this->params['action'];
-        if (!is_callable([$theController, $action])) {
-            echo "500: Method $action in $controller is Missing";
-            return;
-        }
+            $theController = new $controller($this->params);
+            $action = $this->params['action'];
+            if (!is_callable([$theController, $action])) {
+                throw new \Exception("Method $action in $controller is Missing", 500);
+            }
 
-        $theController->$action();
+            $theController->$action();
+        } catch(\Exception $e) {
+            $errorController = new ErrorController($e->getCode(), $e->getMessage());
+            $errorController->show();
+        }
     }
 
     protected function removeQueryString(string $url): string {
