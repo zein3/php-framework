@@ -12,7 +12,11 @@ spl_autoload_register(function ($class) {
 });
 
 use App\Core\Router;
+use App\Core\DotEnv;
 
+if (!DotEnv::load("../.env")) {
+    return;
+}
 
 // contoh route
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {

@@ -11,10 +11,10 @@ class Database
         static $db = null;
 
         if ($db === null) {
-            $host = 'localhost';
-            $dbname = 'pbw';
-            $username = 'root';
-            $password = '';
+            $host = getenv('DB_HOST');
+            $dbname = getenv('DB_NAME');
+            $username = getenv('DB_USERNAME');
+            $password = getenv('DB_PASSWORD');
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
