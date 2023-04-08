@@ -6,8 +6,8 @@ class ErrorController extends Controller {
     private int $error_code;
     private string $message;
 
-    public function __construct(int $error_code, string $message) {
-        $this->error_code = $error_code;
+    public function __construct($error_code, string $message) {
+        $this->error_code = (is_numeric($error_code)) ? $error_code : 500;
         $this->message = $message;
     }
 
