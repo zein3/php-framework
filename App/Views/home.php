@@ -7,7 +7,7 @@
         <?php if(isset($data['roles'])): ?>
             <ol>Roles
             <?php foreach ($data['roles'] as $role): ?>
-                <li><?= $role['name'] ?></li>
+                <li><?= $role->name ?></li>
             <?php endforeach; ?>
             </ol>
         <?php endif; ?>

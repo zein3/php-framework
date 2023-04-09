@@ -4,11 +4,12 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Core\Database;
+use App\Models\Role;
 
 class HomeController extends Controller
 {
     public function index() {
-        $roles = Database::getPDO()->query("SELECT * FROM roles");
+        $roles = Role::getAll();
         $this->view('home', [
             'name' => "zein haddad",
             'roles' => $roles

@@ -18,19 +18,24 @@ if (!DotEnv::load("../.env")) {
     return;
 }
 
-use App\Models\Role;
-$role = new Role();
-$role->name = 'testing';
-$role->save();
-var_dump($role);
-$role->delete();
+// use App\Models\Role;
+// $role = new Role();
+// $role->name = 'testing';
+// $role->save();
+// var_dump($role);
+// $role->name = "test";
+// $role->save(); // auto update
 
-echo "<br><br>";
+// echo "<br><br>";
 
-$roles = Role::getAll();
-var_dump($roles);
-echo "<br>";
-return;
+// $roles = Role::getAll();
+// var_dump($roles);
+
+// echo "<br><br>";
+
+// $role1 = Role::get(1);
+// var_dump($role1);
+// return;
 
 // contoh route
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
