@@ -6,9 +6,9 @@
         <h1>Hello <?= $data['name'] ?></h1>
         <?php if(isset($data['roles'])): ?>
             <ol>Roles
-            <?php while ($role = $data['roles']->fetch()): ?>
+            <?php foreach ($data['roles'] as $role): ?>
                 <li><?= $role['name'] ?></li>
-            <?php endwhile; ?>
+            <?php endforeach; ?>
             </ol>
         <?php endif; ?>
         <pre>

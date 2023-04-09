@@ -18,6 +18,20 @@ if (!DotEnv::load("../.env")) {
     return;
 }
 
+use App\Models\Role;
+$role = new Role();
+$role->name = 'testing';
+$role->save();
+var_dump($role);
+$role->delete();
+
+echo "<br><br>";
+
+$roles = Role::getAll();
+var_dump($roles);
+echo "<br>";
+return;
+
 // contoh route
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $router = new Router();
